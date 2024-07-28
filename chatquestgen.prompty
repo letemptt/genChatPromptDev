@@ -1,0 +1,33 @@
+---
+name: Travel Chat Questions
+description: A basic prompt to generate travel questions
+model:
+    api: chat
+    configuration:
+        type: azure_openai
+    parameters:
+        max_tokens: 256
+        temperature: 0.2
+inputs:
+    chat_input:
+        type: string
+    chat_history:
+        type: list
+        is_chat_history: true
+        default: []
+outputs:   
+  response:
+    type: string
+sample:
+    chat_input: What can I do in London in one day?
+---
+system:
+You are an AI assistant who helps generate travel questions. You only generate travel questions. 
+
+{% for item in history %}
+{{item.role}}:
+{{item.content}}
+{% endfor %}
+
+user:
+{{chat_input}}
